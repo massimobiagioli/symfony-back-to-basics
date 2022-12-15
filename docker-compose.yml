@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  db:
+    image: mariadb:10.10.2
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=S3cr3t
+      - MYSQL_PASSWORD=device-manager
+      - MYSQL_USER=device-manager
+      - MYSQL_DATABASE=device-manager
+  db-test:
+    image: mariadb:10.10.2
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=S3cr3t
+      - MYSQL_PASSWORD=device-manager
+      - MYSQL_USER=device-manager
+      - MYSQL_DATABASE=device-manager
