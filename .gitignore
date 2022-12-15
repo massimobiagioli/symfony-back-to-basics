@@ -14,6 +14,16 @@
 
 # Docker
 data
+
+# asdf
+.tool-versions
+
+# NodeJs
+node_modules
+
+# Husky
+.husky
+
 ###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
