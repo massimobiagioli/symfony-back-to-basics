@@ -1,0 +1,9 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: Symfony Back-to-Basics
+            description: Symfony Back-to-Basics Web Application
+            version: 1.0.0
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/['doc$', 'doc.json$'])

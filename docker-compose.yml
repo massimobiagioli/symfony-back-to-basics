@@ -20,4 +20,4 @@ services:
       - MYSQL_ROOT_PASSWORD=S3cr3t
       - MYSQL_PASSWORD=device-manager
       - MYSQL_USER=device-manager
-      - MYSQL_DATABASE=device-manager
+      - MYSQL_DATABASE=device-manager_test
