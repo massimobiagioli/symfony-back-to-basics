@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Device;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -20,6 +21,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $this->loadUsers($manager);
+        $this->loadDevices($manager);
         $manager->flush();
     }
 
@@ -36,5 +38,20 @@ class AppFixtures extends Fixture
         );
 
         $manager->persist($user->withHashedPassword($hashedPassword));
+    }
+
+    private function loadDevices(ObjectManager $manager): void
+    {
+        $device = new Device(
+            name: 'First device',
+            address: '10.10.10.1'
+        );
+        $manager->persist($device);
+
+        $device = new Device(
+            name: 'Second device',
+            address: '10.10.10.2'
+        );
+        $manager->persist($device);
     }
 }
