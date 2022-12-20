@@ -18,7 +18,7 @@ final class GetUserInfoController extends AbstractController
         response: 200,
         description: 'Returns the current user',
         content: new OA\JsonContent(
-            ref: new Model(type: GetUserInfoDto::class),
+            ref: new Model(type: UserInfoDto::class),
         )
     )]
     #[OA\Response(

@@ -19,8 +19,8 @@ class CreateDeviceControllerTest extends ApplicationTestCase
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode([
-                'name' => 'test device',
-                'address' => '10.10.10.1',
+                'name' => 'test create device',
+                'address' => '10.10.10.11',
             ])
         );
 

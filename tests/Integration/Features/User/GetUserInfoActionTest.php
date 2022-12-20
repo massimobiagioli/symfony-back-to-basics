@@ -6,7 +6,7 @@ namespace App\Tests\Integration\Features\User;
 
 use App\Entity\User;
 use App\Features\User\GetUserInfo\GetUserInfoAction;
-use App\Features\User\GetUserInfo\GetUserInfoDto;
+use App\Features\User\GetUserInfo\UserInfoDto;
 use App\Features\User\GetUserInfo\UserNotFoundException;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -28,7 +28,7 @@ class GetUserInfoActionTest extends TestCase
 
         $userInfo = $action($user);
 
-        $this->assertInstanceOf(GetUserInfoDto::class, $userInfo);
+        $this->assertInstanceOf(UserInfoDto::class, $userInfo);
         $this->assertEquals('user@email.com', $userInfo->email);
         $this->assertEquals('John', $userInfo->firstname);
         $this->assertEquals('Doe', $userInfo->lastname);

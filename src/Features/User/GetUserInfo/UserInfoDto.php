@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Features\User\GetUserInfo;
 
-final readonly class GetUserInfoDto
+final readonly class UserInfoDto
 {
     public function __construct(
         public string $email,

@@ -13,13 +13,13 @@ final readonly class GetUserInfoAction
     ) {
     }
 
-    public function __invoke(UserInterface $user): GetUserInfoDto
+    public function __invoke(UserInterface $user): UserInfoDto
     {
         if (!$user instanceof User) {
             throw new UserNotFoundException();
         }
 
-        return new GetUserInfoDto(
+        return new UserInfoDto(
             $user->email,
             $user->firstname,
             $user->lastname,
