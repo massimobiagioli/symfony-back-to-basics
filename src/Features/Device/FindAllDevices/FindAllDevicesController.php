@@ -27,7 +27,7 @@ final class FindAllDevicesController extends AbstractController
         response: 401,
         description: 'Unauthorized',
     )]
-    #[OA\Tag(name: 'Auth')]
+    #[OA\Tag(name: 'Device')]
     public function __invoke(
         FindAllDevicesAction $findAllDevicesAction
     ): JsonResponse {

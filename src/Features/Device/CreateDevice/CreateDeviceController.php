@@ -29,7 +29,7 @@ final class CreateDeviceController extends AbstractController
         response: 500,
         description: 'Error creating the device',
     )]
-    #[OA\Tag(name: 'Auth')]
+    #[OA\Tag(name: 'Device')]
     public function __invoke(
         Request $request,
         CreateDeviceAction $createDeviceAction
