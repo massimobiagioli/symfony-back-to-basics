@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Features\User\GetUserInfo;
 
 use App\Entity\User;
-use App\Features\User\Shared\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 final readonly class GetUserInfoAction

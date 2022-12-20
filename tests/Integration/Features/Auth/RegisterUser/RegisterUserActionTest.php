@@ -26,7 +26,11 @@ class RegisterUserActionTest extends TestCase
             'email' => 'pippo.baudo@gmail.com',
         ];
         $command = RegisterUserCommand::fromArray($data);
-        $user = User::fromRegisterUserCommand($command);
+        $user = new User(
+            firstname: $command->firstname,
+            lastname: $command->lastname,
+            email: $command->email,
+        );
         $hashedPassword = 'hashedPassword';
 
         $passwordHasher = $this->prophesize(UserPasswordHasherInterface::class);

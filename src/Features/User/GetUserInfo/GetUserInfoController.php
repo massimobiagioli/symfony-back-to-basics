@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Features\User\GetUserInfo;
 
-use App\Features\User\Shared\UserNotFoundException;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

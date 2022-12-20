@@ -20,7 +20,11 @@ final readonly class RegisterUserAction
     {
         $em = $this->doctrine->getManager();
 
-        $user = User::fromRegisterUserCommand($command);
+        $user = new User(
+            firstname: $command->firstname,
+            lastname: $command->lastname,
+            email: $command->email,
+        );
 
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,

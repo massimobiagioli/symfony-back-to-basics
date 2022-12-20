@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Features\Auth\RegisterUser\RegisterUserCommand;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -41,11 +40,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     public ?\DateTimeImmutable $updatedAt;
 
-    private function __construct(
+    public function __construct(
         string $firstname,
         string $lastname,
         string $email,
-        string $password
+        string $password = '',
     ) {
         $this->id = null;
         $this->firstname = $firstname;
@@ -55,16 +54,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->createdAt = null;
         $this->updatedAt = null;
         $this->roles = [];
-    }
-
-    public static function fromRegisterUserCommand(RegisterUserCommand $command): self
-    {
-        return new self(
-            $command->firstname,
-            $command->lastname,
-            $command->email,
-            ''
-        );
     }
 
     public function withHashedPassword(string $hashedPassword): self

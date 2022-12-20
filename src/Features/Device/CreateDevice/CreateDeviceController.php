@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Features\Auth\RegisterUser;
+namespace App\Features\Device\CreateDevice;
 
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
@@ -13,32 +13,32 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmozart\Assert\Assert;
 
-final class RegisterUserController extends AbstractController
+final class CreateDeviceController extends AbstractController
 {
-    #[Route('/api/auth/register', name: 'auth_register', methods: ['POST'])]
+    #[Route('/api/device', name: 'device_create', methods: ['POST'])]
     #[OA\RequestBody(
         content: new OA\JsonContent(
-            ref: new Model(type: RegisterUserCommand::class),
+            ref: new Model(type: CreateDeviceCommand::class),
         )
     )]
     #[OA\Response(
         response: 201,
-        description: 'User registered',
+        description: 'Device created',
     )]
     #[OA\Response(
         response: 500,
-        description: 'Error registering the user',
+        description: 'Error creating the device',
     )]
     #[OA\Tag(name: 'Auth')]
     public function __invoke(
         Request $request,
-        RegisterUserAction $registerUserAction
+        CreateDeviceAction $createDeviceAction
     ): JsonResponse {
         $body = json_decode($request->getContent(), true);
         Assert::isArray($body);
 
-        $registerUserAction(
-            RegisterUserCommand::fromArray($body)
+        $createDeviceAction(
+            CreateDeviceCommand::fromArray($body)
         );
 
         return new JsonResponse(status: Response::HTTP_CREATED);

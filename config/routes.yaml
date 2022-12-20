@@ -2,5 +2,5 @@ controllers:
     resource: ../src/Features/**/*Controller.php
     type: attribute
 
-api_login_check:
-    path: /api/auth/login_check
+api_login:
+    path: /api/auth/login

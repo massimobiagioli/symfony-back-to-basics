@@ -1,11 +1,11 @@
-.PHONY: up down logs status start-local stop-local cs-fix cs-check psalm test test-unit test-integration test-application test-single test-coverage create-migration migrate migrate-test create-db-test pre-commit-install help
+.PHONY: up down logs status start-local stop-local cs-fix cs-check psalm test test-unit test-integration test-application test-single test-coverage create-migration migrate migrate-test create-db-test load-fixtures load-fixtures-test pre-commit-install help
 .DEFAULT_GOAL := help
 run-docker-compose = docker compose -f docker-compose.yml
 run-cs-fixer = PHP_CS_FIXER_IGNORE_ENV=1 php ./vendor/bin/php-cs-fixer
 run-psalm = php ./vendor/bin/psalm
 run-phpunit = php -c ./disable-xdebug.ini ./vendor/bin/phpunit
 run-phpunit-xdebug-cov = XDEBUG_MODE=coverage php ./vendor/bin/phpunit
-run-php-console = php bin/console
+run-php-console = php -c ./disable-xdebug.ini bin/console
 run-symfony = symfony
 run-npm = npm run
 
@@ -45,13 +45,13 @@ test-unit: # Run unit tests
 test-integration: # Run integration tests
 	$(run-phpunit) --testsuite=Integration
 
-test-application: create-db-test migrate-test # Run application tests
+test-application: create-db-test migrate-test load-fixtures-test # Run application tests
 	$(run-phpunit) --testsuite=Application
 
 test-single: # Run single test
 	$(run-phpunit) --filter=$(filter)
 
-test-coverage: create-db-test migrate-test # Run all tests with coverage
+test-coverage: create-db-test migrate-test load-fixtures-test # Run all tests with coverage
 	$(run-phpunit-xdebug-cov) --testsuite=All --coverage-text
 
 create-migration: # Create migration
@@ -66,6 +66,12 @@ create-db-test: # Create test database
 
 migrate-test: # Run migrations for test environment
 	$(run-php-console) doctrine:migrations:migrate --env=test --no-interaction
+
+load-fixtures: # Load fixtures
+	$(run-php-console) doctrine:fixtures:load --no-interaction
+
+load-fixtures-test: # Load fixtures for test environment
+	$(run-php-console) doctrine:fixtures:load --env=test --no-interaction
 
 pre-commit-install: # Install pre-commit hook
 	$(run-npm) prepare

@@ -4,6 +4,45 @@ nelmio_api_doc:
             title: Symfony Back-to-Basics
             description: Symfony Back-to-Basics Web Application
             version: 1.0.0
+        components:
+            securitySchemes:
+                bearerAuth:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+        security:
+            - bearerAuth: []
+        paths:
+            /api/auth/login:
+                post:
+                    tags:
+                        - Auth
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    properties:
+                                        username:
+                                            type: string
+                                        password:
+                                            type: string
+                                    type: object
+                    responses:
+                        '200':
+                            description: OK
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            token:
+                                                type: string
+                                            refresh_token:
+                                                type: string
+                        '401':
+                            description: Invalid credentials
+                        '400':
+                            description: Invalid JSON.
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/['doc$', 'doc.json$'])
