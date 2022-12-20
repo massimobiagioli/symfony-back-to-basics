@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Application\Features\Device\FindAllDevicesControllerTest;
+namespace App\Tests\Application\Features\Device\FindAllDevices;
 
 use App\Tests\Helper\ApplicationTestCase;
 use Webmozart\Assert\Assert;

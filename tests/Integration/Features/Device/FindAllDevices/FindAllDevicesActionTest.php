@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Features\User;
+namespace App\Tests\Integration\Features\Device\FindAllDevices;
 
 use App\Features\Device\FindAllDevices\FindAllDevicesAction;
 use Doctrine\DBAL\Connection;

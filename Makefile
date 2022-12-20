@@ -49,7 +49,7 @@ test-application: create-db-test migrate-test load-fixtures-test # Run applicati
 	$(run-phpunit) --testsuite=Application
 
 test-single: # Run single test
-	$(run-phpunit) --filter=$(filter)
+	$(run-phpunit) --filter=$(filter) -vvv
 
 test-coverage: create-db-test migrate-test load-fixtures-test # Run all tests with coverage
 	$(run-phpunit-xdebug-cov) --testsuite=All --coverage-text
