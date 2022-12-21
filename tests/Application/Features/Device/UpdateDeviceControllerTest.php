@@ -9,7 +9,7 @@ use App\Tests\Helper\DeviceHelper;
 
 class UpdateDeviceControllerTest extends ApplicationTestCase
 {
-    public function testDeactivateDevice(): void
+    public function testUpdateDevice(): void
     {
         $client = static::createAuthenticatedClient('john.doe@email.com', 'S3cr3t!');
 

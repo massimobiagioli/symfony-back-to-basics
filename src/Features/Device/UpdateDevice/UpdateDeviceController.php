@@ -16,7 +16,7 @@ use Webmozart\Assert\Assert;
 
 final class UpdateDeviceController extends AbstractController
 {
-    #[Route('/api/device/{id}', name: 'device_update', requirements: ['id' => '\d+'], methods: ['UPDATE'])]
+    #[Route('/api/device/{id}', name: 'device_update', requirements: ['id' => '\d+'], methods: ['PUT'])]
     #[OA\RequestBody(
         content: new OA\JsonContent(
             ref: new Model(type: UpdateDeviceCommand::class),

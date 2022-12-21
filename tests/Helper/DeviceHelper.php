@@ -105,7 +105,7 @@ class DeviceHelper
         array $deviceData,
     ): void {
         $client->request(
-            'UPDATE',
+            'PUT',
             "/api/device/$deviceId",
             [],
             [],
