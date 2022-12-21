@@ -13,9 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class DeactivateDeviceController extends AbstractController
 {
-    #[Route('/api/device/{id}/deactivate', name: 'device_deactivate', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[Route('/api/device/{id}/deactivate', name: 'device_deactivate', requirements: ['id' => '\d+'], methods: ['PATCH'])]
     #[OA\Response(
-        response: 200,
+        response: 204,
         description: 'Device deactivated',
     )]
     #[OA\Response(
@@ -28,7 +28,7 @@ final class DeactivateDeviceController extends AbstractController
     )]
     #[OA\Response(
         response: 500,
-        description: 'Error creating the device',
+        description: 'Error deactivating the device',
     )]
     #[OA\Tag(name: 'Device')]
     public function __invoke(
@@ -38,7 +38,7 @@ final class DeactivateDeviceController extends AbstractController
         try {
             $deactivateDeviceAction($id);
 
-            return new JsonResponse(status: Response::HTTP_OK);
+            return new JsonResponse(status: Response::HTTP_NO_CONTENT);
         } catch (DeviceNotFoundException $e) {
             return new JsonResponse(status: Response::HTTP_NOT_FOUND);
         }

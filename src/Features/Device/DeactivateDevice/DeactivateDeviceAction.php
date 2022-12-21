@@ -23,7 +23,7 @@ final readonly class DeactivateDeviceAction
         $em = $this->doctrine->getManager();
 
         $device = $em->find(Device::class, $id);
-        if (!$device) {
+        if (null === $device) {
             throw new DeviceNotFoundException();
         }
 

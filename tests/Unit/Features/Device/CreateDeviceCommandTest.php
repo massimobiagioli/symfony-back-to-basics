@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Features\Device\CreateDevice;
+namespace App\Tests\Unit\Features\Device;
 
 use App\Features\Device\CreateDevice\CreateDeviceCommand;
 use PHPUnit\Framework\TestCase;

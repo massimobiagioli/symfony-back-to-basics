@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Features\Device\ActivateDevice;
+namespace App\Tests\Integration\Features\Device;
 
 use App\Entity\Device;
 use App\Features\Device\ActivateDevice\ActivateDeviceAction;

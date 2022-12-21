@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Features\Auth\RegisterUser;
+namespace App\Tests\Integration\Features\Auth;
 
 use App\Entity\User;
 use App\Features\Auth\RegisterUser\RegisterUserAction;

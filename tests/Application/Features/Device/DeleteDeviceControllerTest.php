@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Application\Features\Device\ActivateDevice;
+namespace App\Tests\Application\Features\Device;
 
 use App\Tests\Helper\ApplicationTestCase;
 use App\Tests\Helper\DeviceHelper;
 
-class ActivateDeviceControllerTest extends ApplicationTestCase
+class DeleteDeviceControllerTest extends ApplicationTestCase
 {
-    public function testActivateDevice(): void
+    public function testDeleteDevice(): void
     {
         $client = static::createAuthenticatedClient('john.doe@email.com', 'S3cr3t!');
 
@@ -21,11 +21,8 @@ class ActivateDeviceControllerTest extends ApplicationTestCase
         $devices = DeviceHelper::gelAllDevices($client);
         $deviceId = end($devices)['id'];
 
-        DeviceHelper::activateDevice($client, $deviceId);
-
-        $device = DeviceHelper::getDeviceById($client, $deviceId);
-
+        DeviceHelper::deleteDevice($client, $deviceId);
         $this->assertResponseIsSuccessful();
-        $this->assertTrue($device['isActive']);
+        $this->assertFalse(DeviceHelper::existsDeviceById($client, $deviceId));
     }
 }

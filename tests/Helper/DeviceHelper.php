@@ -57,12 +57,24 @@ class DeviceHelper
         return $content;
     }
 
+    public static function existsDeviceById(
+        KernelBrowser $client,
+        string $deviceId,
+    ): bool {
+        $client->request(
+            'GET',
+            "/api/device/$deviceId"
+        );
+
+        return 200 === $client->getResponse()->getStatusCode();
+    }
+
     public static function activateDevice(
         KernelBrowser $client,
         string $deviceId,
     ): void {
         $client->request(
-            'POST',
+            'PATCH',
             "/api/device/$deviceId/activate"
         );
     }
@@ -72,8 +84,33 @@ class DeviceHelper
         string $deviceId,
     ): void {
         $client->request(
-            'POST',
+            'PATCH',
             "/api/device/$deviceId/deactivate"
+        );
+    }
+
+    public static function deleteDevice(
+        KernelBrowser $client,
+        string $deviceId,
+    ): void {
+        $client->request(
+            'DELETE',
+            "/api/device/$deviceId"
+        );
+    }
+
+    public static function updateDevice(
+        KernelBrowser $client,
+        string $deviceId,
+        array $deviceData,
+    ): void {
+        $client->request(
+            'UPDATE',
+            "/api/device/$deviceId",
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode($deviceData)
         );
     }
 }

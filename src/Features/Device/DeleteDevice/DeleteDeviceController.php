@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Features\Device\ActivateDevice;
+namespace App\Features\Device\DeleteDevice;
 
 use App\Shared\Device\DeviceNotFoundException;
 use OpenApi\Attributes as OA;
@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class ActivateDeviceController extends AbstractController
+final class DeleteDeviceController extends AbstractController
 {
-    #[Route('/api/device/{id}/activate', name: 'device_activate', requirements: ['id' => '\d+'], methods: ['PATCH'])]
+    #[Route('/api/device/{id}', name: 'device_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
     #[OA\Response(
         response: 204,
-        description: 'Device activated',
+        description: 'Device deleted',
     )]
     #[OA\Response(
         response: 401,
@@ -28,15 +28,15 @@ final class ActivateDeviceController extends AbstractController
     )]
     #[OA\Response(
         response: 500,
-        description: 'Error activating the device',
+        description: 'Error deleting the device',
     )]
     #[OA\Tag(name: 'Device')]
     public function __invoke(
         string $id,
-        ActivateDeviceAction $activateDeviceAction
+        DeleteDeviceAction $deleteDeviceAction
     ): JsonResponse {
         try {
-            $activateDeviceAction($id);
+            $deleteDeviceAction($id);
 
             return new JsonResponse(status: Response::HTTP_NO_CONTENT);
         } catch (DeviceNotFoundException $e) {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Features\Device\GetDevice;
+namespace App\Tests\Integration\Features\Device;
 
 use App\Features\Device\GetDevice\GetDeviceAction;
 use Doctrine\DBAL\Connection;

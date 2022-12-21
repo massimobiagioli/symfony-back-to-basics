@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Application\Features\Auth\RegisterUser;
+namespace App\Tests\Application\Features\Auth;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

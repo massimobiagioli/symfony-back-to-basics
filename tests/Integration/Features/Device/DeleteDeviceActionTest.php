@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Features\Device\CreateDevice;
+namespace App\Tests\Integration\Features\Device;
 
 use App\Entity\Device;
-use App\Features\Device\CreateDevice\CreateDeviceAction;
 use App\Features\Device\CreateDevice\CreateDeviceCommand;
+use App\Features\Device\DeleteDevice\DeleteDeviceAction;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-class CreateDeviceActionTest extends TestCase
+class DeleteDeviceActionTest extends TestCase
 {
     use ProphecyTrait;
 
@@ -29,17 +29,20 @@ class CreateDeviceActionTest extends TestCase
             address: $command->address,
         );
 
+        $id = '123';
+
         $em = $this->prophesize(ObjectManager::class);
+        $em->find(Device::class, $id)->willReturn($device);
         $doctrine = $this->prophesize(ManagerRegistry::class);
         $doctrine->getManager()->willReturn($em->reveal());
 
-        $action = new CreateDeviceAction(
+        $action = new DeleteDeviceAction(
             $doctrine->reveal()
         );
 
-        $action($command);
+        $action($id);
 
-        $em->persist($device)->shouldHaveBeenCalledOnce();
+        $em->remove($device)->shouldHaveBeenCalledOnce();
         $em->flush()->shouldHaveBeenCalledOnce();
     }
 }

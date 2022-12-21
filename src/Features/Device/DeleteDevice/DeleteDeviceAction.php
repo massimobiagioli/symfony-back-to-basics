@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Features\Device\ActivateDevice;
+namespace App\Features\Device\DeleteDevice;
 
 use App\Entity\Device;
 use App\Shared\Device\DeviceNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
 
-final readonly class ActivateDeviceAction
+final readonly class DeleteDeviceAction
 {
     public function __construct(
         private ManagerRegistry $doctrine,
@@ -27,9 +27,7 @@ final readonly class ActivateDeviceAction
             throw new DeviceNotFoundException();
         }
 
-        $device->activate();
-
-        $em->persist($device);
+        $em->remove($device);
         $em->flush();
     }
 }

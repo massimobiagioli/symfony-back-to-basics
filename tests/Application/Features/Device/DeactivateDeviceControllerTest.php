@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Application\Features\Device\DeactivateDevice;
+namespace App\Tests\Application\Features\Device;
 
 use App\Tests\Helper\ApplicationTestCase;
 use App\Tests\Helper\DeviceHelper;
 
 class DeactivateDeviceControllerTest extends ApplicationTestCase
 {
-    public function testActivateDevice(): void
+    public function testDeactivateDevice(): void
     {
         $client = static::createAuthenticatedClient('john.doe@email.com', 'S3cr3t!');
 

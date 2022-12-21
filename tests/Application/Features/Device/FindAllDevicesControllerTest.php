@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Application\Features\Device\FindAllDevices;
+namespace App\Tests\Application\Features\Device;
 
 use App\Tests\Helper\ApplicationTestCase;
 use App\Tests\Helper\DeviceHelper;

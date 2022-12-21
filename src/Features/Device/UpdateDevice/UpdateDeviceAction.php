@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Features\Device\ActivateDevice;
+namespace App\Features\Device\UpdateDevice;
 
 use App\Entity\Device;
 use App\Shared\Device\DeviceNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
 
-final readonly class ActivateDeviceAction
+final readonly class UpdateDeviceAction
 {
     public function __construct(
         private ManagerRegistry $doctrine,
@@ -18,7 +18,7 @@ final readonly class ActivateDeviceAction
     /**
      * @throws DeviceNotFoundException
      */
-    public function __invoke(string $id): void
+    public function __invoke(string $id, UpdateDeviceCommand $command): void
     {
         $em = $this->doctrine->getManager();
 
@@ -27,7 +27,13 @@ final readonly class ActivateDeviceAction
             throw new DeviceNotFoundException();
         }
 
-        $device->activate();
+        if (null !== $command->name) {
+            $device->name = $command->name;
+        }
+
+        if (null !== $command->address) {
+            $device->address = $command->address;
+        }
 
         $em->persist($device);
         $em->flush();

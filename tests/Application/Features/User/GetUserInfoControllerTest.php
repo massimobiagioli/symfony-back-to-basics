@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Application\Features\User\GetUserInfo;
+namespace App\Tests\Application\Features\User;
 
 use App\Tests\Helper\ApplicationTestCase;
 use Webmozart\Assert\Assert;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Features\Auth\RegisterUser;
+namespace App\Tests\Unit\Features\Auth;
 
 use App\Features\Auth\RegisterUser\RegisterUserCommand;
 use PHPUnit\Framework\TestCase;
