@@ -56,4 +56,24 @@ class DeviceHelper
 
         return $content;
     }
+
+    public static function activateDevice(
+        KernelBrowser $client,
+        string $deviceId,
+    ): void {
+        $client->request(
+            'POST',
+            "/api/device/$deviceId/activate"
+        );
+    }
+
+    public static function deactivateDevice(
+        KernelBrowser $client,
+        string $deviceId,
+    ): void {
+        $client->request(
+            'POST',
+            "/api/device/$deviceId/deactivate"
+        );
+    }
 }

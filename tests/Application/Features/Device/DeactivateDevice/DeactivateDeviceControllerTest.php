@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Application\Features\Device\ActivateDevice;
+namespace App\Tests\Application\Features\Device\DeactivateDevice;
 
 use App\Tests\Helper\ApplicationTestCase;
 use App\Tests\Helper\DeviceHelper;
 
-class ActivateDeviceControllerTest extends ApplicationTestCase
+class DeactivateDeviceControllerTest extends ApplicationTestCase
 {
     public function testActivateDevice(): void
     {
@@ -22,10 +22,13 @@ class ActivateDeviceControllerTest extends ApplicationTestCase
         $deviceId = end($devices)['id'];
 
         DeviceHelper::activateDevice($client, $deviceId);
+        $deviceAfterActivation = DeviceHelper::getDeviceById($client, $deviceId);
 
-        $device = DeviceHelper::getDeviceById($client, $deviceId);
+        DeviceHelper::deactivateDevice($client, $deviceId);
+        $deviceAfterDeactivation = DeviceHelper::getDeviceById($client, $deviceId);
 
         $this->assertResponseIsSuccessful();
-        $this->assertTrue($device['isActive']);
+        $this->assertTrue($deviceAfterActivation['isActive']);
+        $this->assertFalse($deviceAfterDeactivation['isActive']);
     }
 }
