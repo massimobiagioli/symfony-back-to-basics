@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Application\Features\Device\FindAllDevices;
 
 use App\Tests\Helper\ApplicationTestCase;
-use Webmozart\Assert\Assert;
+use App\Tests\Helper\DeviceHelper;
 
 class FindAllDevicesControllerTest extends ApplicationTestCase
 {
@@ -13,26 +13,15 @@ class FindAllDevicesControllerTest extends ApplicationTestCase
     {
         $client = static::createAuthenticatedClient('john.doe@email.com', 'S3cr3t!');
 
-        $client->request(
-            'GET',
-            '/api/device'
-        );
-
-        $content = $client->getResponse()->getContent();
-        Assert::string($content);
-
-        $content = json_decode($content, true);
-        Assert::isArray($content);
+        $devices = DeviceHelper::gelAllDevices($client);
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('Content-Type', 'application/json');
-        $this->assertNotEmpty($content[0]['id']);
-        $this->assertEquals('First device', $content[0]['name']);
-        $this->assertEquals('10.10.10.1', $content[0]['address']);
-        $this->assertFalse($content[0]['isActive']);
-        $this->assertNotEmpty($content[1]['id']);
-        $this->assertEquals('Second device', $content[1]['name']);
-        $this->assertEquals('10.10.10.2', $content[1]['address']);
-        $this->assertFalse($content[1]['isActive']);
+        $this->assertNotEmpty($devices[0]['id']);
+        $this->assertEquals('First device', $devices[0]['name']);
+        $this->assertEquals('10.10.10.1', $devices[0]['address']);
+        $this->assertNotEmpty($devices[1]['id']);
+        $this->assertEquals('Second device', $devices[1]['name']);
+        $this->assertEquals('10.10.10.2', $devices[1]['address']);
     }
 }

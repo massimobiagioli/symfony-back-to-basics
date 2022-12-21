@@ -41,6 +41,11 @@ class Device
         $this->updatedAt = null;
     }
 
+    public function activate(): void
+    {
+        $this->isActive = true;
+    }
+
     #[ORM\PrePersist]
     public function onPrePersist(): void
     {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Features\Device\GetDevice;
 
 use App\Features\Device\FindAllDevices\DeviceDto;
+use App\Shared\Device\DeviceNotFoundException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 

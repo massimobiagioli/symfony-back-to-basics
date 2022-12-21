@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Features\Device\GetDevice;
+namespace App\Shared\Device;
 
 class DeviceNotFoundException extends \Exception
 {

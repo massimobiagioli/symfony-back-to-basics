@@ -2,26 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Features\Device\GetDevice;
+namespace App\Features\Device\ActivateDevice;
 
 use App\Shared\Device\DeviceNotFoundException;
-use Doctrine\DBAL\Exception;
-use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class GetDeviceController extends AbstractController
+final class ActivateDeviceController extends AbstractController
 {
-    #[Route('/api/device/{id}', name: 'device_get', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route('/api/device/{id}/activate', name: 'device_activate', requirements: ['id' => '\d+'], methods: ['POST'])]
     #[OA\Response(
         response: 200,
-        description: 'Returns all devices',
-        content: new OA\JsonContent(
-            ref: new Model(type: DeviceDto::class)
-        )
+        description: 'Device activated',
     )]
     #[OA\Response(
         response: 401,
@@ -31,17 +26,21 @@ final class GetDeviceController extends AbstractController
         response: 404,
         description: 'Device not found',
     )]
+    #[OA\Response(
+        response: 500,
+        description: 'Error creating the device',
+    )]
     #[OA\Tag(name: 'Device')]
     public function __invoke(
         string $id,
-        GetDeviceAction $getDeviceAction,
+        ActivateDeviceAction $activateDeviceAction
     ): JsonResponse {
         try {
-            return new JsonResponse($getDeviceAction($id));
+            $activateDeviceAction($id);
+
+            return new JsonResponse(status: Response::HTTP_OK);
         } catch (DeviceNotFoundException $e) {
             return new JsonResponse(status: Response::HTTP_NOT_FOUND);
-        } catch (GetDeviceException|Exception $e) {
-            return new JsonResponse(status: Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

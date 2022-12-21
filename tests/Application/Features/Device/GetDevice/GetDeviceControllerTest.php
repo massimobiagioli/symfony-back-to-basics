@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Application\Features\Device\GetDevice;
 
 use App\Tests\Helper\ApplicationTestCase;
-use Webmozart\Assert\Assert;
+use App\Tests\Helper\DeviceHelper;
 
 class GetDeviceControllerTest extends ApplicationTestCase
 {
@@ -13,35 +13,17 @@ class GetDeviceControllerTest extends ApplicationTestCase
     {
         $client = static::createAuthenticatedClient('john.doe@email.com', 'S3cr3t!');
 
-        $client->request(
-            'GET',
-            '/api/device'
-        );
+        $devices = DeviceHelper::gelAllDevices($client);
 
-        $content = $client->getResponse()->getContent();
-        Assert::string($content);
+        $deviceId = $devices[0]['id'];
+        $deviceName = $devices[0]['name'];
 
-        $content = json_decode($content, true);
-        Assert::isArray($content);
-
-        $deviceId = $content[0]['id'];
-        $deviceName = $content[0]['name'];
-
-        $client->request(
-            'GET',
-            "/api/device/$deviceId"
-        );
-
-        $content = $client->getResponse()->getContent();
-        Assert::string($content);
-
-        $content = json_decode($content, true);
-        Assert::isArray($content);
+        $firstDevice = DeviceHelper::getDeviceById($client, $deviceId);
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('Content-Type', 'application/json');
-        $this->assertEquals($deviceId, $content['id']);
-        $this->assertEquals($deviceName, $content['name']);
+        $this->assertEquals($deviceId, $firstDevice['id']);
+        $this->assertEquals($deviceName, $firstDevice['name']);
     }
 
     public function testFindAllDevicesWithInvalidId(): void
